@@ -4,10 +4,11 @@ Flask
 Flask-Assets
 Flask-Cache
 Flask-DebugToolbar
-Flask-Login
+# Flask-Login
 Flask-SQLAlchemy
 Flask-Script
 Flask-WTF
+Flask-Security
 
 # Other
 itsdangerous
