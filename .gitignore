@@ -36,6 +36,7 @@ tests/logs
 
 # Generated Assets
 shell/static/public/*
+shell/static/.webassets-cache/*
 
 # Mr Developer
 .mr.developer.cfg
