@@ -4,8 +4,11 @@ import os
 
 from flask.ext.script import Manager, Server
 from flask.ext.script.commands import ShowUrls, Clean
+from flask.ext.security.utils import encrypt_password
+
 from shell import create_app
-#from shell.styles.models import db, User
+from shell.styles.extensions import db
+from shell.styles.models import User
 
 # default to dev config because no one should use this in
 # production anyway
@@ -28,15 +31,26 @@ manager.add_command("clean", Clean())
 #     return dict(app=app, db=db, User=User)
 #===============================================================================
 
-#===============================================================================
-# @manager.command
-# def createdb():
-#     """ Creates a database with all of the tables defined in
-#         your SQLAlchemy models
-#     """
-# 
-#     db.create_all()
-#===============================================================================
+@manager.command
+def initdb(nodata=False):
+    """ Creates a database with all of the tables defined in
+        your SQLAlchemy models
+    """
+   
+    db.drop_all()
+    db.create_all()
+    
+    if not nodata:
+        admin = User(
+                username=u'admin',
+                email=u'admin@example.com',
+                password=encrypt_password('password'),
+                #role_code=ADMIN,
+                active=True)
+    
+        db.session.add(admin)
+        db.session.commit()
+
 
 if __name__ == "__main__":
     manager.run()

@@ -11,9 +11,14 @@ cache = Cache()
 # init flask assets
 assets_env = Environment()
 
-debug_toolbar = DebugToolbarExtension()
-
+# flask security
 security = Security()
+
+# flask sqlalchemy
+from flask.ext.sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+
+debug_toolbar = DebugToolbarExtension()
 
 #login_manager = LoginManager()
 #login_manager.login_view = "main.login"

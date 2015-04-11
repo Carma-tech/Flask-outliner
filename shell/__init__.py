@@ -1,12 +1,13 @@
 #! ../env/bin/python
 
 from flask import Flask
+from flask.ext.security import SQLAlchemyUserDatastore
 from webassets.loaders import PythonLoader as PythonAssetsLoader
 
 from shell.styles import assets
-#from styles.models import db
-
-from styles.extensions import (
+from shell.styles.controllers.user.models import User, Role
+from shell.styles.extensions import (
+    db,
     cache,
     assets_env,
     debug_toolbar,
@@ -30,16 +31,18 @@ def create_app(object_name, env="prod"):
     app.config['ENV'] = env
     app.jinja_env.globals['project_name'] = 'Styles' 
 
+    # initialize SQLAlchemy
+    db.init_app(app)
+    
     # initialize the cache
     cache.init_app(app)
 
+    # initialize security
+    ds = SQLAlchemyUserDatastore(db, User, Role)
+    security.init_app(app, datastore=ds)
+    
     # initialize the debug tool bar
     debug_toolbar.init_app(app)
-
-    # initialize SQLAlchemy
-    # db.init_app(app)
-
-    security.init_app(app)
 
     #Import and register the different asset bundles
     assets_env.init_app(app)
