@@ -10,7 +10,7 @@ from styles.extensions import (
     cache,
     assets_env,
     debug_toolbar,
-#    login_manager
+    security
 )
 
 
@@ -28,6 +28,7 @@ def create_app(object_name, env="prod"):
 
     app.config.from_object(object_name)
     app.config['ENV'] = env
+    app.jinja_env.globals['project_name'] = 'Styles' 
 
     # initialize the cache
     cache.init_app(app)
@@ -38,7 +39,7 @@ def create_app(object_name, env="prod"):
     # initialize SQLAlchemy
     # db.init_app(app)
 
-    #login_manager.init_app(app)
+    security.init_app(app)
 
     #Import and register the different asset bundles
     assets_env.init_app(app)
