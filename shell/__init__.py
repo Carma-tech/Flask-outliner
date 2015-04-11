@@ -3,7 +3,7 @@
 from flask import Flask
 from webassets.loaders import PythonLoader as PythonAssetsLoader
 
-#from styles.extensions import assets
+from shell.styles import assets
 #from styles.models import db
 
 from styles.extensions import (
@@ -40,11 +40,11 @@ def create_app(object_name, env="prod"):
 
     #login_manager.init_app(app)
 
-    # Import and register the different asset bundles
-    #assets_env.init_app(app)
-    #assets_loader = PythonAssetsLoader(assets)
-    #for name, bundle in assets_loader.load_bundles().iteritems():
-    #    assets_env.register(name, bundle)
+    #Import and register the different asset bundles
+    assets_env.init_app(app)
+    assets_loader = PythonAssetsLoader(assets)
+    for name, bundle in assets_loader.load_bundles().iteritems():
+        assets_env.register(name, bundle)
 
     # register our blueprints
     from shell.styles.controllers.main import main

@@ -34,6 +34,9 @@ tests/logs
 # Translations
 *.mo
 
+# Generated Assets
+shell/static/public/*
+
 # Mr Developer
 .mr.developer.cfg
 .project
