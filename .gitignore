@@ -37,6 +37,9 @@ tests/logs
 shell/static/public/*
 shell/static/.webassets-cache/*
 
+# Database files
+database.db
+
 # Mr Developer
 .mr.developer.cfg
 .project
