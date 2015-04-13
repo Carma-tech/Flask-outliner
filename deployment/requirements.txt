@@ -9,6 +9,7 @@ Flask-SQLAlchemy
 Flask-Script
 Flask-WTF
 Flask-Security
+Flask-Bootstrap
 
 # Other
 itsdangerous

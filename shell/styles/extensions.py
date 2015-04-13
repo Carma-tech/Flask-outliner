@@ -1,3 +1,4 @@
+from flask.ext.bootstrap import Bootstrap
 from flask.ext.cache import Cache
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.security import Security
@@ -10,6 +11,9 @@ cache = Cache()
 
 # init flask assets
 assets_env = Environment()
+
+# Bootstrap
+bootstrap = Bootstrap()
 
 # flask security
 security = Security()

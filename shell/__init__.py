@@ -10,6 +10,7 @@ from shell.styles.extensions import (
     db,
     cache,
     assets_env,
+    bootstrap,
     debug_toolbar,
     security
 )
@@ -40,6 +41,9 @@ def create_app(object_name, env="prod"):
     # initialize security
     ds = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, datastore=ds)
+    
+    # initialize bootstrap resource
+    bootstrap.init_app(app)
     
     # initialize the debug tool bar
     debug_toolbar.init_app(app)
