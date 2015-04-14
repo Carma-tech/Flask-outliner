@@ -14,6 +14,7 @@ from shell.styles.extensions import (
     debug_toolbar,
     security
 )
+from shell.styles.controllers.user import forms
 
 
 def create_app(object_name, env="prod"):
@@ -40,7 +41,8 @@ def create_app(object_name, env="prod"):
 
     # initialize security
     ds = SQLAlchemyUserDatastore(db, User, Role)
-    security.init_app(app, datastore=ds)
+    security.init_app(app, datastore=ds,
+                      register_form=forms.ExtendedRegisterForm)
     
     # initialize bootstrap resource
     bootstrap.init_app(app)

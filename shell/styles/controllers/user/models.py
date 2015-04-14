@@ -27,12 +27,13 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
     first_name = db.Column(db.String(30))
     last_name = db.Column(db.String(20))
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(120))
     active = db.Column(db.Boolean(), default=True)
+    confirmed_at = db.Column(db.DateTime())
     last_login_at = db.Column(db.DateTime())
     current_login_at = db.Column(db.DateTime())
     last_login_ip = db.Column(db.String(100))

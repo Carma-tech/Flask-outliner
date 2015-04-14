@@ -13,19 +13,21 @@ class DevConfig(Config):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
 
     SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
-    CACHE_TYPE = 'null'
+    CACHE_TYPE = 'simple'
 
     # This allows us to test the forms from WTForm
     WTF_CSRF_ENABLED = False
     #SEND_EMAIL = False
+    SECURITY_SEND_REGISTER_EMAIL = False
     SECURITY_LOGIN_USER_TEMPLATE = 'user/log_in.html'
     SECURITY_REGISTER_USER_TEMPLATE = 'user/register_user.html'
     SECURITY_FORGOT_PASSWORD_TEMPLATE = 'user/forgot_password.html'
     SECURITY_RESET_PASSWORD_TEMPLATE = 'user/reset_password.html'
     # This needs to be set to implement verification code
     SECURITY_POST_REGISTER_VIEW = None
+    SECURITY_LOGIN_WITHOUT_CONFIRMATION = True
     SECURITY_USER_IDENTITY_ATTRIBUTES = ['email', 'username']
     SECURITY_PASSWORD_HASH = 'pbkdf2_sha512'
     SECURITY_PASSWORD_SALT = '4f1WQbWEKMPv9S7p'
