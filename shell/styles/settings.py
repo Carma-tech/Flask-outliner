@@ -26,8 +26,9 @@ class DevConfig(Config):
     SECURITY_FORGOT_PASSWORD_TEMPLATE = 'user/forgot_password.html'
     SECURITY_RESET_PASSWORD_TEMPLATE = 'user/reset_password.html'
     # This needs to be set to implement verification code
-    SECURITY_POST_REGISTER_VIEW = None
+    SECURITY_POST_REGISTER_VIEW = '/'
     SECURITY_LOGIN_WITHOUT_CONFIRMATION = True
+    SECURITY_POST_LOGOUT_VIEW = '/'
     SECURITY_USER_IDENTITY_ATTRIBUTES = ['email', 'username']
     SECURITY_PASSWORD_HASH = 'pbkdf2_sha512'
     SECURITY_PASSWORD_SALT = '4f1WQbWEKMPv9S7p'
