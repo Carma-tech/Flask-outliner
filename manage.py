@@ -2,6 +2,7 @@
 
 import os
 
+from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager, Server
 from flask.ext.script.commands import ShowUrls, Clean
 from flask.ext.security.utils import encrypt_password
@@ -15,7 +16,13 @@ from shell.styles.models import User
 env = os.environ.get('STYLES_ENV', 'dev')
 app = create_app('shell.styles.settings.%sConfig' % env.capitalize(), env=env)
 
-manager = Manager(app)
+def create_app_with_migrate():
+    migrate = Migrate(app, db)
+    migrate
+    return app
+
+manager = Manager(create_app_with_migrate)
+manager.add_command('db', MigrateCommand)
 manager.add_command("runserver", Server())
 manager.add_command("show-urls", ShowUrls())
 manager.add_command("clean", Clean())
