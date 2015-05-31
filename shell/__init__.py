@@ -1,12 +1,13 @@
 #! ../env/bin/python
+import os
 
 from flask import Flask, render_template
 from flask.ext.security import SQLAlchemyUserDatastore
 from webassets.loaders import PythonLoader as PythonAssetsLoader
 
-from shell.styles import assets
-from shell.styles.controllers.user.models import User, Role
-from shell.styles.extensions import (
+from shell.webinterface import assets
+from shell.webinterface.controllers.user.models import User, Role
+from shell.webinterface.extensions import (
     db,
     cache,
     assets_env,
@@ -14,7 +15,7 @@ from shell.styles.extensions import (
     debug_toolbar,
     security
 )
-from shell.styles.controllers.user import forms
+from shell.webinterface.controllers.user import forms
 
 
 def create_app(object_name, env="prod"):
@@ -27,7 +28,12 @@ def create_app(object_name, env="prod"):
         env: The name of the current environment, e.g. prod or dev
     """
 
-    app = Flask(__name__)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    
+    app = Flask(__name__, 
+        static_folder=os.path.join(BASE_DIR, 'webinterface', 'static'),
+        template_folder=os.path.join(BASE_DIR, 'webinterface', 'templates')
+    )
 
     app.config.from_object(object_name)
     app.config['ENV'] = env
@@ -65,7 +71,7 @@ def register_extensions(app):
     
 
 def register_blueprints(app):
-    from shell.styles.controllers.main import main
+    from shell.webinterface.controllers.main import main
     app.register_blueprint(main)
     return None
 

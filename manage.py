@@ -8,13 +8,13 @@ from flask.ext.script.commands import ShowUrls, Clean
 from flask.ext.security.utils import encrypt_password
 
 from shell import create_app
-from shell.styles.extensions import db
-from shell.styles.models import User
+from shell.webinterface.extensions import db
+from shell.webinterface.models import User
 
 # default to dev config because no one should use this in
 # production anyway
 env = os.environ.get('STYLES_ENV', 'dev')
-app = create_app('shell.styles.settings.%sConfig' % env.capitalize(), env=env)
+app = create_app('shell.webinterface.settings.%sConfig' % env.capitalize(), env=env)
 
 def create_app_with_migrate():
     migrate = Migrate(app, db)

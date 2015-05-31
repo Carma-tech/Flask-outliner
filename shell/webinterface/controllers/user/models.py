@@ -5,7 +5,7 @@ Created on Apr 10, 2015
 '''
 from flask.ext.security import UserMixin, RoleMixin
 
-from shell.styles.extensions import db
+from shell.webinterface.extensions import db
 
 
 roles_users = db.Table('roles_users',
