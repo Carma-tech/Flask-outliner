@@ -10,6 +10,10 @@ Flask-Script
 Flask-WTF
 Flask-Security
 Flask-Bootstrap
+Flask-OAuthlib
+
+# Social required
+facebook-sdk
 
 # Other
 itsdangerous
