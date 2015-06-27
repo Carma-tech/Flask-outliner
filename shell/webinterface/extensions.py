@@ -24,6 +24,11 @@ db = SQLAlchemy()
 
 debug_toolbar = DebugToolbarExtension()
 
+
+# flask-social Mine
+from shell.webinterface.plugin.social import Social
+social = Social()
+
 #login_manager = LoginManager()
 #login_manager.login_view = "main.login"
 #login_manager.login_message_category = "warning"

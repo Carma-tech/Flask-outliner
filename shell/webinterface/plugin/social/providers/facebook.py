@@ -15,7 +15,7 @@ config = {
     'id': 'facebook',
     'name': 'Facebook',
     'install': 'pip install facebook-sdk',
-    'module': 'flask_social.providers.facebook',
+    'module': 'shell.webinterface.plugin.social.providers.facebook',
     'base_url': 'https://graph.facebook.com/',
     'request_token_url': None,
     'access_token_url': '/oauth/access_token',

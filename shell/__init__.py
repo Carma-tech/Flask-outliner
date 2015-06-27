@@ -6,16 +6,18 @@ from flask.ext.security import SQLAlchemyUserDatastore
 from webassets.loaders import PythonLoader as PythonAssetsLoader
 
 from shell.webinterface import assets
-from shell.webinterface.controllers.user.models import User, Role
+from shell.webinterface.controllers.user.models import User, Role, Connection
 from shell.webinterface.extensions import (
     db,
     cache,
     assets_env,
     bootstrap,
     debug_toolbar,
-    security
+    security,
+    social
 )
 from shell.webinterface.controllers.user import forms
+from shell.webinterface.plugin.social import SQLAlchemyConnectionDatastore
 
 
 def create_app(object_name, env="prod"):
@@ -61,7 +63,12 @@ def register_extensions(app):
     # initialize bootstrap resource
     bootstrap.init_app(app)
     # initialize the debug tool bar
-    debug_toolbar.init_app(app)
+    #debug_toolbar.init_app(app)
+    
+    # Initialize social
+    social_ds = SQLAlchemyConnectionDatastore(db, Connection)
+    social.init_app(app, social_ds)
+    
     #Import and register the different asset bundles
     assets_env.init_app(app)
     assets_loader = PythonAssetsLoader(assets)
@@ -73,6 +80,8 @@ def register_extensions(app):
 def register_blueprints(app):
     from shell.webinterface.controllers.main import main
     app.register_blueprint(main)
+    from shell.webinterface.controllers.user import user
+    app.register_blueprint(user)
     return None
 
 def register_errorhandlers(app):

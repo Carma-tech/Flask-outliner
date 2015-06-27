@@ -24,6 +24,7 @@
         <li>
             <p class="navbar-text"><a class="navbar-link" href="url_for('user.members')">Logged in as {{ current_user.username }}</a></p>
         </li>
+        <li><a class="navbar-link" href="{{ url_for('user.profile') }}">Profile</a></li>
         <li><a class="navbar-link" href="{{ url_for_security('logout') }}"><i class="fa fa-sign-out"></i></a></li>
 
     </ul>

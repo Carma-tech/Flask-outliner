@@ -137,4 +137,5 @@ class Social(object):
         return state
 
     def __getattr__(self, name):
+        #print self._state
         return getattr(self._state, name, None)

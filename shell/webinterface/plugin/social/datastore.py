@@ -27,7 +27,18 @@ class ConnectionDatastore(object):
         raise NotImplementedError
 
     def create_connection(self, **kwargs):
-        return self.put(self.connection_model(**kwargs))
+        # This is for email field come back from twitter.
+        connection_columns = [c.name 
+                              for c 
+                              in self.connection_model.__table__.columns]
+        connection_kwargs = {}
+        for k in kwargs:
+            if not k in connection_columns:
+                print("receiving extra connection "
+                      "keyword: %s, value: %s" % (k, kwargs[k]))
+            else:
+                connection_kwargs[k] = kwargs[k]
+        return self.put(self.connection_model(**connection_kwargs))
 
     def delete_connection(self, **kwargs):
         """Remove a single connection to a provider for the specified user."""
