@@ -4,6 +4,7 @@ import os
 from flask import Flask, render_template
 from flask.ext.security import SQLAlchemyUserDatastore
 from webassets.loaders import PythonLoader as PythonAssetsLoader
+from werkzeug import url_decode
 
 from shell.webinterface import assets
 from shell.webinterface.controllers.user.models import User, Role, Connection
@@ -19,6 +20,20 @@ from shell.webinterface.extensions import (
 from shell.webinterface.controllers.user import forms
 from shell.webinterface.plugin.social import SQLAlchemyConnectionDatastore
 
+
+class MethodRewriteMiddleware(object):
+
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        if 'METHOD_OVERRIDE' in environ.get('QUERY_STRING', ''):
+            args = url_decode(environ['QUERY_STRING'])
+            method = args.get('__METHOD_OVERRIDE__')
+            if method:
+                method = method.encode('ascii', 'replace')
+                environ['REQUEST_METHOD'] = method
+        return self.app(environ, start_response)
 
 def create_app(object_name, env="prod"):
     """
@@ -36,6 +51,9 @@ def create_app(object_name, env="prod"):
         static_folder=os.path.join(BASE_DIR, 'webinterface', 'static'),
         template_folder=os.path.join(BASE_DIR, 'webinterface', 'templates')
     )
+
+    # Allow method override
+    app.wsgi_app = MethodRewriteMiddleware(app.wsgi_app)
 
     app.config.from_object(object_name)
     app.config['ENV'] = env

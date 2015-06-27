@@ -7,7 +7,7 @@ Profile for {{ current_user.username }}
 
 {% macro show_provider_button(provider_id, display_name, conn) %}
     {% if conn %}
-    <form action="{{ url_for('social.remove_connection', provider_id=conn.provider_id, provider_user_id=conn.provider_user_id) }}" method="DELETE">
+    <form action="{{ url_for('social.remove_connection', provider_id=conn.provider_id, provider_user_id=conn.provider_user_id) }}?__METHOD_OVERRIDE__=DELETE" method="POST">
       <input type="submit" value="Disconnect {{ display_name }}" />
     </form>
     {% else %}
