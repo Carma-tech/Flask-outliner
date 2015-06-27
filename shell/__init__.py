@@ -1,8 +1,10 @@
 #! ../env/bin/python
 import os
+import random
+import string
 
-from flask import Flask, render_template
-from flask.ext.security import SQLAlchemyUserDatastore
+from flask import Flask, render_template, current_app, url_for, redirect
+from flask.ext.security import SQLAlchemyUserDatastore, login_user
 from webassets.loaders import PythonLoader as PythonAssetsLoader
 from werkzeug import url_decode
 
@@ -19,6 +21,9 @@ from shell.webinterface.extensions import (
 )
 from shell.webinterface.controllers.user import forms
 from shell.webinterface.plugin.social import SQLAlchemyConnectionDatastore
+from shell.webinterface.plugin.social.utils import get_connection_values_from_oauth_response
+from shell.webinterface.plugin.social.views import connect_handler
+from shell.webinterface.plugin.social.signals import login_failed
 
 
 class MethodRewriteMiddleware(object):
@@ -65,6 +70,9 @@ def create_app(object_name, env="prod"):
     # register our blueprints
     register_blueprints(app)
     
+    # register authentication singal handlers
+    register_authentication_signal_handlers(app)
+    
     register_errorhandlers(app)
     return app
 
@@ -101,6 +109,27 @@ def register_blueprints(app):
     from shell.webinterface.controllers.user import user
     app.register_blueprint(user)
     return None
+
+def register_authentication_signal_handlers(app):
+    @login_failed.connect_via(app)
+    def on_login_failed(sender, provider, oauth_response):
+        connection_values = get_connection_values_from_oauth_response(provider, oauth_response)
+        ds = current_app.extensions['security'].datastore
+        chars = string.ascii_letters + string.digits + '!@#$%^&*()'
+        random.seed = (os.urandom(1024))
+        user_kwargs = dict(username = connection_values['display_name'] or \
+                                      "_".join(connection_values['full_name'].split()) or \
+                                    connection_values['email'].split("@")[1],
+                            # have to get a silly email address
+                            email = connection_values['email'] or "123@abc.com",
+                            password = ''.join(random.choice(chars) for i in range(10)))
+        user = ds.create_user(**user_kwargs) #fill in relevant stuff here
+        ds.commit()
+        connection_values['user_id'] = user.id
+        connect_handler(connection_values, provider)
+        login_user(user)
+        current_app.extensions['sqlalchemy'].db.session.commit()
+        return redirect(url_for('main.home'))
 
 def register_errorhandlers(app):
     def render_error(error):
