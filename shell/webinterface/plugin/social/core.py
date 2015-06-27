@@ -121,7 +121,7 @@ class Social(object):
                 continue
 
             suffix = key.lower().replace('social_', '')
-            default_module_name = 'flask_social.providers.%s' % suffix
+            default_module_name = 'shell.webinterface.plugin.social.providers.%s' % suffix
             module_name = config.get('module', default_module_name)
             module = import_module(module_name)
             config = update_recursive(module.config, config)
