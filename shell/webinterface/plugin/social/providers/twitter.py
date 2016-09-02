@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask.ext.social.providers.twitter
+    flask_ext.social.providers.twitter
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     This module contains the Flask-Social twitter code
     :copyright: (c) 2012 by Matt Wright.

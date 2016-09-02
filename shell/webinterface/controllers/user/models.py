@@ -3,7 +3,7 @@ Created on Apr 10, 2015
 
 @author: mac
 '''
-from flask.ext.security import UserMixin, RoleMixin
+from flask_security import UserMixin, RoleMixin
 
 from shell.webinterface.extensions import db
 

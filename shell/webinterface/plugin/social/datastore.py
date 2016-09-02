@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask.ext.social.datastore
+    flask_ext.social.datastore
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
     This module contains an abstracted social connection datastore.
     :copyright: (c) 2012 by Matt Wright.

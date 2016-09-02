@@ -1,7 +1,7 @@
-from flask.ext.bootstrap import Bootstrap
-from flask.ext.cache import Cache
-from flask.ext.debugtoolbar import DebugToolbarExtension
-from flask.ext.security import Security
+from flask_bootstrap import Bootstrap
+from flask_cache import Cache
+from flask_debugtoolbar import DebugToolbarExtension
+from flask_security import Security
 from flask_assets import Environment
 
 #from styles.models import User
@@ -19,7 +19,7 @@ bootstrap = Bootstrap()
 security = Security()
 
 # flask sqlalchemy
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 debug_toolbar = DebugToolbarExtension()

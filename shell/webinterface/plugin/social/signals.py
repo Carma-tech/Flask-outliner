@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask.ext.social.signals
+    flask_ext.social.signals
     ~~~~~~~~~~~~~~~~~~~~~~~~
     This module contains the Flask-Social signals
     :copyright: (c) 2012 by Matt Wright.

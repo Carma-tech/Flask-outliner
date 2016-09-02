@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, request, redirect, url_for
-from flask.ext.security import current_user
+from flask_security import current_user
 
 from shell.webinterface.extensions import cache
 

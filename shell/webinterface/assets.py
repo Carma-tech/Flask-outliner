@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask.ext.assets import Bundle, Environment
+from flask_assets import Bundle
+
 
 css_all = Bundle(
     "libs/bootstrap/dist/css/bootstrap.css",
@@ -15,4 +16,3 @@ js_all = Bundle(
     filters='jsmin',
     output="public/js/common.js"
 )
-

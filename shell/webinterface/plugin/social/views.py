@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask.ext.social.views
+    flask_ext.social.views
     ~~~~~~~~~~~~~~~~~~~~~~
     This module contains the Flask-Social views
     :copyright: (c) 2012 by Matt Wright.
@@ -9,11 +9,11 @@
 from importlib import import_module
 
 from flask import (Blueprint, current_app, redirect, request, session,
-                   after_this_request, abort, url_for)
-from flask.ext.security import current_user, login_required
-from flask.ext.security.utils import (get_post_login_redirect, login_user,
-                                      logout_user, get_url, do_flash)
-from flask.ext.security.decorators import anonymous_user_required
+                   after_this_request, abort)
+from flask_security import current_user, login_required
+from flask_security.utils import (get_post_login_redirect, login_user,
+                                  logout_user, get_url, do_flash)
+from flask_security.decorators import anonymous_user_required
 from werkzeug.local import LocalProxy
 
 from .signals import (connection_removed, connection_created,
@@ -66,6 +66,7 @@ def reconnect(provider_id):
     """
     logout_user()
     return login(provider_id)
+
 
 @login_required
 def remove_all_connections(provider_id):
@@ -140,8 +141,11 @@ def connect_handler(cv, provider):
         connection_failed.send(current_app._get_current_object(),
                                user=current_user._get_current_object())
 
-    redirect_url = session.pop(config_value('POST_OAUTH_CONNECT_SESSION_KEY'),
-                               get_url(config_value('CONNECT_ALLOW_VIEW')))
+    next_url = request.form.get('next', get_post_login_redirect())
+    redirect_url = (next_url or
+                    session.pop(
+                        config_value('POST_OAUTH_CONNECT_SESSION_KEY'),
+                        get_url(config_value('CONNECT_ALLOW_VIEW'))))
 
     do_flash(*msg)
     return redirect(redirect_url)
@@ -172,7 +176,7 @@ def login_handler(response, provider, query):
         after_this_request(_commit)
         token_pair = get_token_pair_from_oauth_response(provider, response)
         if (token_pair['access_token'] != connection.access_token or
-            token_pair['secret'] != connection.secret):
+                token_pair['secret'] != connection.secret):
             connection.access_token = token_pair['access_token']
             connection.secret = token_pair['secret']
             _datastore.put(connection)
@@ -190,10 +194,10 @@ def login_handler(response, provider, query):
                       provider=provider,
                       oauth_response=response)
 
-    next = get_url(_security.login_manager.login_view)
+    next_url = get_url(_security.login_manager.login_view)
     msg = '%s account not associated with an existing user' % provider.name
     do_flash(msg, 'error')
-    return redirect(next)
+    return redirect(next_url)
 
 
 def login_callback(provider_id):

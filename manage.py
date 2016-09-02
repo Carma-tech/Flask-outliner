@@ -2,10 +2,10 @@
 
 import os
 
-from flask.ext.migrate import Migrate, MigrateCommand
-from flask.ext.script import Manager, Server
-from flask.ext.script.commands import ShowUrls, Clean
-from flask.ext.security.utils import encrypt_password
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager, Server
+from flask_script.commands import ShowUrls, Clean
+from flask_security.utils import encrypt_password
 
 from shell import create_app
 from shell.webinterface.extensions import db

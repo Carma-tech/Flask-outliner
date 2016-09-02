@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask.ext.social.utils
+    flask_ext.social.utils
     ~~~~~~~~~~~~~~~~~~~~~~
     This module contains the Flask-Social utils
     :copyright: (c) 2012 by Matt Wright.

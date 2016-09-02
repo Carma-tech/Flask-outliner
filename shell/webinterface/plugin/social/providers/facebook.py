@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask.ext.social.providers.facebook
+    flask_ext.social.providers.facebook
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     This module contains the Flask-Social facebook code
     :copyright: (c) 2012 by Matt Wright.
