@@ -41,11 +41,11 @@ class DevConfig(Config):
     #SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
 
     SOCIAL_TWITTER = {
-        'consumer_key': 'twitter consumer key',
-        'consumer_secret': 'twitter consumer secret'
+        'consumer_key': '<twitter consumer key>',
+        'consumer_secret': '<twitter consumer secret>'
     }
 
     SOCIAL_FACEBOOK = {
-        'consumer_key': 'twitter consumer key',
-        'consumer_secret': 'twitter consumer secret'
+        'consumer_key': '<twitter consumer key>',
+        'consumer_secret': '<twitter consumer secret>'
     }
