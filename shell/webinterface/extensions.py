@@ -1,5 +1,5 @@
 from flask_bootstrap import Bootstrap
-from flask_cache import Cache
+from flask_caching import Cache
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_security import Security
 from flask_assets import Environment
