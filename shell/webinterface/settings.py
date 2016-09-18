@@ -1,26 +1,6 @@
 class Config(object):
     SECRET_KEY = 'secret key'
-
-
-class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
-
-    CACHE_TYPE = 'simple'
-
-
-class DevConfig(Config):
-    DEBUG = True
-    DEBUG_TB_INTERCEPT_REDIRECTS = False
-
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
-    SQLALCHEMY_ECHO = False
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    CACHE_TYPE = 'simple'
-
-    # This allows us to test the forms from WTForm
-    WTF_CSRF_ENABLED = False
-    #SEND_EMAIL = False
+    
     SECURITY_SEND_REGISTER_EMAIL = False
     SECURITY_LOGIN_USER_TEMPLATE = 'user/log_in.html'
     SECURITY_REGISTER_USER_TEMPLATE = 'user/register_user.html'
@@ -49,3 +29,24 @@ class DevConfig(Config):
         'consumer_key': '<your_facebook_consumer_key>',
         'consumer_secret': '<your_facebook_consumer_secret>'
     }
+
+
+class ProdConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
+
+    CACHE_TYPE = 'simple'
+
+
+class DevConfig(Config):
+    DEBUG = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
+
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    CACHE_TYPE = 'simple'
+
+    # This allows us to test the forms from WTForm
+    WTF_CSRF_ENABLED = False
+    #SEND_EMAIL = False
