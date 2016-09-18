@@ -48,16 +48,15 @@ def init_project(project_name="your_flask_project_name"):
            1. Give it your project name
            2. ... (more ? Welcome your ideas) 
     """
-    # Give it a project name
+    # 1. Give it a project name, save it to your __init__.py file
     env = Environment(loader=FileSystemLoader(
         os.path.join(PROJECT_DIR, 'shell')))
     template = env.get_template('__init__.py')
     output_from_parsed_template = template.render(project_name=project_name)
-    print output_from_parsed_template
-    
-    # to save the results
-    #with open(os.path.join('shell', "__init__.py"), "wb") as fh:
-    #    fh.write(output_from_parsed_template)
+    #print(output_from_parsed_template)
+
+    with open(os.path.join(PROJECT_DIR, 'shell', "__init__.py"), "wb") as fh:
+        fh.write(output_from_parsed_template)
 
 @manager.command
 def initdb(nodata=False):
