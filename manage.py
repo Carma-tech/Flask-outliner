@@ -7,6 +7,8 @@ from flask_script import Manager, Server
 from flask_script.commands import ShowUrls, Clean
 from flask_security.utils import encrypt_password
 
+from jinja2 import Environment, FileSystemLoader
+
 from shell import create_app
 from shell.webinterface.extensions import db
 from shell.webinterface.models import User
@@ -37,6 +39,25 @@ manager.add_command("clean", Clean())
 # 
 #     return dict(app=app, db=db, User=User)
 #===============================================================================
+
+PROJECT_DIR = os.path.dirname(__file__) 
+
+@manager.command
+def init_project(project_name="your_flask_project_name"):
+    """ Initialize your flask project. right now it does following:
+           1. Give it your project name
+           2. ... (more ? Welcome your ideas) 
+    """
+    # Give it a project name
+    env = Environment(loader=FileSystemLoader(
+        os.path.join(PROJECT_DIR, 'shell')))
+    template = env.get_template('__init__.py')
+    output_from_parsed_template = template.render(project_name=project_name)
+    print output_from_parsed_template
+    
+    # to save the results
+    #with open(os.path.join('shell', "__init__.py"), "wb") as fh:
+    #    fh.write(output_from_parsed_template)
 
 @manager.command
 def initdb(nodata=False):
