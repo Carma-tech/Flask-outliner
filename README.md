@@ -1,7 +1,10 @@
-A Flask cookie-cutter for starting a flask project. Its higlights include:
+A Skillpot allows people's unique skills to be passed over to others who are interested, as well as facilitating mentor-mentee relationships:
 
-1. Separate your core logic with your frivolous web interface code.
-2. Centralize config management in a settings.py (resembles django project structure).
-3. Several out-of-box management command (use `python manage.py` to see all commands)
-4. Integration with my flask-social plugin which makes sense for all social-site developers
-5. And more...
+Initial Development Scope
+1. User registration, user role assignment.
+2. Allow user to post their latest unique skills.
+3. Allow potential mentees to search for skills he/she is interested in
+4. Match mentor(s) with mentee(s) (user who has skills and use who searches skills)
+
+
+More to come
